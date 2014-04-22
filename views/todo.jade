@@ -1,0 +1,96 @@
+extends layout
+
+block content
+
+    .main
+        .create-todo
+            h1 Scrum Board Example
+            .left-div
+                input.title(placeholder="title...", type="text")
+                input.description(placeholder="description...", type="text")
+                input.author(placeholder="author...", type="text")
+                
+            .right-div
+                select.prio(name="prio")
+                    option(value="1") 1
+                    option(value="2") 2
+                    option(value="3", selected="selected") 3
+                    option(value="5") 5
+                    option(value="8") 8
+                select.list(name="list")
+                    option(value="1", selected="selected") Todo
+                    option(value="2") In Progress
+                    option(value="3") Done
+                input.new-todo(value="Add Item", type="button")
+
+        .todoapp
+            .title
+                h1 Todo
+            .content
+                .todos
+                    ul.todo-list
+                .todo-stats
+
+        .inprogressapp
+            .title
+                h1 In Progress
+            .content
+                .todos
+                    ul.todo-list
+                .todo-stats
+
+        .doneapp
+            .title
+                h1 Done
+            .content
+                .todos
+                    ul.todo-list
+                .todo-stats
+
+
+    // TEMPLATES
+    // todo item
+    script#item-template(type="text/template")
+        <div class="todo <%= done ? 'done' : '' %>">
+        .display
+            .left-checkbox
+                <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+            
+            .center-content
+                .todo-title 
+                .todo-description
+                .todo-author
+
+            .right-content
+                .todo-prio
+                .todo-list-righ
+
+        .edit
+            input.todo-input.title(type="text", "value"="")
+            input.todo-input.description(type="text", "value"="")
+            input.todo-input.author(type="text", "value"="")
+            select.todo-input.prio(name="prio")
+                    option(value="1") 1
+                    option(value="2") 2
+                    option(value="3") 3
+                    option(value="5") 5
+                    option(value="8") 8
+            select.todo-input.list(name="list")
+                    option(value="1") Todo
+                    option(value="2") In Progress
+                    option(value="3") Done
+        </div>
+
+    // stats
+    script#stats-template(type="text/template")
+        <% if (total) { %>
+        span.todo-count
+            span.number <%= remaining %> 
+            span.word <%= remaining == 1 ? 'item' : 'items' %>
+            |  left.
+        <% } %>
+
+        <% if (done) { %>
+        span.todo-clear
+            |<a href="#" data-list="<%= list%>">remove completed <span class="word-done"><%= done == 1 ? 'item' : 'items' %></span></a>
+        <% } %>

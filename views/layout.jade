@@ -1,0 +1,14 @@
+html
+  head
+    title= title
+    link(rel="stylesheet", href="css/style.css")
+    script(type="text/javascript", src="/js/ext/jquery-1.6.2.min.js")
+    script(type="text/javascript", src="/js/ext/underscore-min.js")
+    script(type="text/javascript", src="/js/ext/backbone-min.js")
+    script(type="text/javascript", src="/js/todo.js")
+
+  body
+    .container
+        block content
+
+    block bodyscripts
